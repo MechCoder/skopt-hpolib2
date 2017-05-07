@@ -1,7 +1,7 @@
 # skopt-hpolib2
 Scripts to run skopt optimizers on HPOlib's benchmark problems
 
-# Instructions
+## Instructions
 1. Install the huge set of requirements
 ```
 pip install -r requirements.txt
