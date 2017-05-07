@@ -74,7 +74,7 @@ def run(optimizer, n_calls, n_runs):
     for n_run in range(n_runs):
         timer = TimerCallback()
         res = opt(
-            lr_objective, bounds, n_calls=n_calls, n_random_starts=1,
+            lr_objective, bounds, n_calls=n_calls,
             verbose=1, random_state=n_run, callback=timer)
         del res["specs"]
         dump(res, "%s_%d.pkl" % (optimizer, n_run))
