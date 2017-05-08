@@ -1,11 +1,13 @@
 from time import time
 import numpy as np
+import matplotlib.pyplot as plt
 import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelBinarizer
 
 
 import keras
+from keras.datasets import cifar10
 from keras.datasets import mnist
 from keras.layers import Dense
 from keras.layers import Dropout
@@ -18,8 +20,9 @@ from keras.optimizers import SGD
 from keras import backend as K
 from keras.regularizers import l2
 from skopt import dump
-from skopt import gp_minimize
 from skopt import forest_minimize
+from skopt import gp_minimize
+from skopt.plots import plot_convergence
 from skopt.callbacks import TimerCallback
 
 (X, y), _ = mnist.load_data()
@@ -91,6 +94,9 @@ def run(optimizer, n_calls, n_runs):
         pickle.dump(timer.iter_time, time_pkl)
         time_pkl.close()
 
+        fig, ax = plt.subplots(nrows=1, ncols=1)
+        ax = plot_convergence(res, ax=ax)
+        plt.savefig("%d.png" % n_run)
         min_vals.append(res.fun)
         all_vals.append(res.func_vals)
         all_times.append(timer.iter_time)
